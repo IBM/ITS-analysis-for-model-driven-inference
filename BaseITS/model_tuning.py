@@ -7,7 +7,7 @@ from prophet import Prophet
 from prophet.diagnostics import cross_validation
 from prophet.diagnostics import performance_metrics
 
-from source.pre_processing import str_date_validate
+from BaseITS.pre_processing import str_date_validate
 
 
 class ModelTuning:
