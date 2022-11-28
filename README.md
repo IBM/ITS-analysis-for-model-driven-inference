@@ -12,4 +12,5 @@ This projects allows a user to use their data in a specified format to perform i
 
 ## Documentation Website
 
+[Full Documentation](https://ibm.github.io/ITS-analysis-for-model-driven-inference/index.html)
 [Code Documentation](https://its-analysis-for-model-driven-inference.readthedocs.io/en/latest/index.html)
