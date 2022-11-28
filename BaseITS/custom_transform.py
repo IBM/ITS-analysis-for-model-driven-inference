@@ -4,11 +4,11 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class CustomTransform(BaseEstimator, TransformerMixin):
-    """Class to ...
+    """Class to transform dataframe for Poisson Regression by adding harmonic.
 
     Args:
-        BaseEstimator (_type_): _description_
-        TransformerMixin (_type_): _description_
+        BaseEstimator (Sklearn): Base class for all estimators in scikit-learn.
+        TransformerMixin (Sklearn): Mixin class for all transformers in scikit-learn.
     """
 
     def __init__(self, columns: list):
