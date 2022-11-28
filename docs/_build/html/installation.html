@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Installing BaseITS &mdash; BaseITS -  Interrupted Time Series Analysis for Model Driven Inference 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <!-- <link rel="next" title="User Guide" href="notebooks/user_guide.html" /> -->
+    <link rel="prev" title="BaseITS -  Interrupted Time Series Analysis for Model Driven Inference" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BaseITS -  Interrupted Time Series Analysis for Model Driven Inference
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing BaseITS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-overview">Installation Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-BaseITS-from-source">Installing BaseITS from Source</a></li>
+<!-- <li class="toctree-l2"><a class="reference internal" href="#installing-BaseITS-docker-images">Installing BaseITS Docker Images</a></li> -->
+<li class="toctree-l2"><a class="reference internal" href="#uninstalling-BaseITS">Uninstalling BaseITS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-installation-help">Getting Installation Help</a></li>
+</ul>
+</li>
+<!-- <li class="toctree-l1"><a class="reference internal" href="index.html">User Guide</a></li> -->
+<li class="toctree-l1"><a class="reference internal" href="BaseITS.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer’s Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BaseITS -  Interrupted Time Series Analysis for Model Driven Inference</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Installing BaseITS</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="installing-BaseITS">
+<h1>Installing BaseITS<a class="headerlink" href="#installing-BaseITS" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation-overview">
+<h2>Installation Overview<a class="headerlink" href="#installation-overview" title="Permalink to this headline">¶</a></h2>
+<p>BaseITS is written in Python and supports Python 3.7+. It requires several Python libraries including <a class="reference external" href="https://numpy.org/">numpy</a>, <a class="reference external" href="https://pandas.pydata.org/">pandas</a>, <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing</a>, <a class="reference external" href="https://www.statsmodels.org/stable/index.html">statsmodels</a>, <a class="reference external" href="https://scikit-learn.org/stable/index.html">scit-learn</a>, <a class="reference external" href="https://facebook.github.io/prophet/docs/quick_start.html">prophet</a>, <a class="reference external" href="https://seaborn.pydata.org/">seaborn</a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/">scipy</a>,and <a class="reference external" href="https://matplotlib.org/">matplotlib</a>, all of which are installed when BaseITS is installed.</p>
+</div>
+<div class="section" id="installing-BaseITS-from-source">
+<h2>Installing BaseITS from Source<a class="headerlink" href="#installing-BaseITS-from-source" title="Permalink to this headline">¶</a></h2>
+<p>You can install BaseITS from the Git Repository using SSH. This can be done by installing directly via git or by cloning the repo and installing locally.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip3 install git+ssh://git@github.com/IBM/ITS-analysis-for-model-driven-inference.git
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone git+ssh://git@github.com/IBM/ITS-analysis-for-model-driven-inference.git
+$ <span class="nb">cd</span> BaseITS
+$ pip3 install .
+</pre></div>
+</div>
+<p>You can also install BaseITS from the Git Repository using HTTPS URLs via the terminal. Note that this requires a personal access token. If you do not have one, follow the instructions for <a class="reference external" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">creating a personal access token</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip3 install git+https://token@github.com/IBM/ITS-analysis-for-model-driven-inference.git
+</pre></div>
+</div>
+</div>
+<!-- <div class="section" id="installing-BaseITS-docker-images"> -->
+<!-- <h2>Installing BaseITS Docker Images<a class="headerlink" href="#installing-BaseITS-docker-images" title="Permalink to this headline">¶</a></h2>
+<p>BaseITS can also be installed and run from Docker Containers registered in an IBM Container Registry. To use this method, you must have access to an IBM Cloud account and the resource group where the BaseITS Docker Image has been registered.</p>
+<ol class="arabic">
+<li><p>Make sure you can access an IBM Cloud account and the IBM Cloud resource group where the BaseITS Image has been registered. For example, the image has been registered in the ‘286900-RIS’ account under the ‘IBM Research Kenya Healthcare’ resource group. If you do not have access to the account and/or resource group, please contact your IT administrator.</p></li>
+<li><p>Make sure you have your personal API Key for an IBM Cloud account where BaseITS Docker image is registered. If you do not have an API Key, see <a class="reference external" href="https://www.ibm.com/docs/en/app-connect/containers_cd?topic=servers-creating-cloud-api-key">Creating an IBM Cloud API key</a>.</p></li>
+<li><p>Access and download the BaseITS Docker Image Installation script. Note that this is only required when running for the first time.</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>Run the following URL on your web browser to access the <a class="reference external" href="https://github.com/IBM/ITS-analysis-for-model-driven-inference//blob/master/scripts/run_dpoc_docker_image.sh">BaseITS library installation script</a>.</p></li>
+<li><p>Click the ‘Raw’ button in the menu at the top right of the script.</p></li>
+<li><p>Right click your mouse and select ‘Save As’.</p></li>
+<li><p>Add the extension ‘.sh’ on the filename ‘run_dpoc_docker_image’ if it is not there. Note that if you are a Windows user, you will need to change the ‘Save as type’ to ‘All files’.</p></li>
+<li><p>Click on ‘Save’ to download the installation file.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Install all external dependencies. Note that this is only required when running for the first time.</p>
+<p><strong>Unix &amp; Linux Users</strong></p>
+<ol class="loweralpha simple">
+<li><p>Ensure that Docker is installed in your machine. If Docker is not installed, see <a class="reference external" href="https://docs.docker.com/get-docker">Get Docker</a>.</p></li>
+<li><p>Open a terminal window and run <cite>docker -v</cite> to confirm that that Docker was successfully installed.</p></li>
+</ol>
+<p><strong>Windows Users</strong></p>
+<ol class="loweralpha simple">
+<li><p>Open Windows PowerShell by right-clicking and select “Run as Administrator”.</p></li>
+<li><p>Run the command below to install the IBM Cloud Developer Tools in your machine. This will install Git and Docker if they are not already installed. Note that IBM Cloud Developer Tools support Windows 10 or newer. For more information, see <a class="reference external" href="https://github.com/IBM-Cloud/ibm-cloud-developer-tools">IBM Cloud Developer Tools</a>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Set-ExecutionPolicy Unrestricted<span class="p">;</span> iex<span class="o">(</span>New-Object Net.WebClient<span class="o">)</span>.DownloadString<span class="o">(</span><span class="s1">&#39;https://ibm.biz/idt-win-installer&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="loweralpha simple" start="3">
+<li><p>Follow the steps and when asked about ‘Execution Policy Change’ enter ‘A’ for ‘Yes to All’.</p></li>
+<li><p>When asked whether to install Docker, please install it by following the prompts. You might be required to restart your machine. Each time it restarts, start from step ‘4a’ again.</p></li>
+<li><p>If after installing Docker and restarting you get an error popup that docker failed to start, see ‘Step 4 - Download the Linux kernel update package’ in the <a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">Manual installation steps for older versions of WSL</a>.</p></li>
+<li><p>When asked to install git, please install by following the instructions. Use the default installation instructions. You might be required to restart your machine. Each time it restarts, kindly start from step ‘4a’ above again.</p></li>
+</ol>
+</li>
+<li><p>Run the installation file.</p>
+<blockquote>
+<div><ol class="loweralpha">
+<li><p>Run the ‘run_dpoc_docker_image.sh’ file to start using BaseITS library.</p>
+<blockquote>
+<div><p><strong>Unix, Linux, &amp; Windows Git Bash Users</strong></p>
+<p>Switch to the directory having the ‘run_dpoc_docker_image.sh’ file and execute the command below</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sh ./run_dpoc_docker_image.sh
+</pre></div>
+</div>
+<p><strong>Windows Users</strong></p>
+<p>Double click on the <cite>run_dpoc_docker_image.sh</cite> file to start running it. Note that Git Bash must have been installed already.</p>
+</div></blockquote>
+</li>
+<li><p>If you are running the script for the first time, you will be asked to enter the parameters listed below.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The IBM Cloud region (e.g. eu-gb)</p></li>
+<li><p>The IBM Cloud Resource Group (e.g. IBM Research Kenya Healthcare)</p></li>
+<li><p>The IBM Container Registry URL for the BaseITS Docker image (e.g. uk.icr.io)</p></li>
+<li><p>The IBM Container Registry Namespace for the BaseITS Docker image (e.g. BaseITS)</p></li>
+<li><p>The IBM Container Registry Image name/Repository name for the BaseITS Docker image(e.g. BaseITS)</p></li>
+<li><p>The IBM Container Registry Image Version (Tag) for the BaseITS Docker image(e.g. latest, v1.0.0)</p></li>
+<li><p>Your IBM Cloud Account ApiKey (see step 2 above)</p></li>
+</ul>
+</div></blockquote>
+<p>Note that you can press enter to use the default values for parameters except for your IBM Cloud Account ApiKey. Also note that, you may need to contact your BaseITS IT administrator for the right parameter values in case the default values do not work.</p>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>If the installation was successfully, a Jupyter notebook link with a unique token is created (see example below).  You can copy the link and run it in your web browser.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://127.0.0.1:8889/?token<span class="o">=</span>678666ca8ee3a1e28cc5f9e1ef271e74888fd9958368aadc
+</pre></div>
+</div>
+</div> -->
+<div class="section" id="installing-BaseITS-pip">
+<h2>Installing BaseITS from Pip<a class="headerlink" href="#installing-BaseITS-pip" title="Permalink to this headline">¶</a></h2>
+
+<p> BaseITS can also be installed from pip with the following <command></p>
+  <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip3 install model-driven-inference-its</pre></div>
+</div>
+
+<div class="section" id="uninstalling-BaseITS">
+<h2>Uninstalling BaseITS<a class="headerlink" href="#uninstalling-BaseITS" title="Permalink to this headline">¶</a></h2>
+<p>You can uninstall BaseITS using the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip3 uninstall model-driven-inference-its
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-installation-help">
+<h2>Getting Installation Help<a class="headerlink" href="#getting-installation-help" title="Permalink to this headline">¶</a></h2>
+<p>For any questions or assistance about installing BaseITS, please send your message to the <a class="reference external" href="#">BaseITS-Help Slack channel</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <!-- <a href="notebooks/user_guide.html" class="btn btn-neutral float-right" title="User Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a> -->
+        <a href="index.html" class="btn btn-neutral float-left" title="BaseITS -  Interrupted Time Series Analysis for Model Driven Inference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, IBM Research.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
