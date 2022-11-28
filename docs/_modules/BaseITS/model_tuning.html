@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BaseITS.model_tuning &mdash; Interrupted Time Series Analysis for Model Driven Inference 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Interrupted Time Series Analysis for Model Driven Inference
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">BaseITS</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Interrupted Time Series Analysis for Model Driven Inference</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">BaseITS.model_tuning</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for BaseITS.model_tuning</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">from</span> <span class="nn">prophet</span> <span class="kn">import</span> <span class="n">Prophet</span>
+<span class="kn">from</span> <span class="nn">prophet.diagnostics</span> <span class="kn">import</span> <span class="n">cross_validation</span>
+<span class="kn">from</span> <span class="nn">prophet.diagnostics</span> <span class="kn">import</span> <span class="n">performance_metrics</span>
+
+<span class="kn">from</span> <span class="nn">BaseITS.pre_processing</span> <span class="kn">import</span> <span class="n">str_date_validate</span>
+
+
+<div class="viewcode-block" id="ModelTuning"><a class="viewcode-back" href="../../BaseITS.html#BaseITS.model_tuning.ModelTuning">[docs]</a><span class="k">class</span> <span class="nc">ModelTuning</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class for tuning Hyperparameters for prophet model. No implementation for Poisson Regression because it&#39;s a basic linear regression model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cutoff_start (str, optional): start date for tuning data . Defaults to &quot;2019-02-28&quot;.</span>
+<span class="sd">        cutoff_end (str, optional): end date for tuning data. Defaults to &quot;2019-10-31&quot;.</span>
+<span class="sd">        param_grid (dict, optional): Dictionary with the parameters to be tuned. Defaults to { &quot;changepoint_prior_scale&quot;: [0.001, 0.05], &quot;seasonality_prior_scale&quot;: [0.1, 10.0], &quot;seasonality_mode&quot;: [&quot;additive&quot;, &quot;multiplicative&quot;], }.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="c1"># model: Prophet = Prophet(),</span>
+        <span class="n">cutoff_start</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2019-02-28&quot;</span><span class="p">,</span>
+        <span class="n">cutoff_end</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2019-10-31&quot;</span><span class="p">,</span>
+        <span class="n">param_grid</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;changepoint_prior_scale&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+            <span class="s2">&quot;seasonality_prior_scale&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">],</span>
+            <span class="s2">&quot;seasonality_mode&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;additive&quot;</span><span class="p">,</span> <span class="s2">&quot;multiplicative&quot;</span><span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Tuning parameters</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cutoff_start (str, optional): start date for tuning data . Defaults to &quot;2019-02-28&quot;.</span>
+<span class="sd">            cutoff_end (str, optional): end date for tuning data. Defaults to &quot;2019-10-31&quot;.</span>
+<span class="sd">            param_grid (dict, optional): Dictionary with the parameters to be tuned. Defaults to { &quot;changepoint_prior_scale&quot;: [0.001, 0.05], &quot;seasonality_prior_scale&quot;: [0.1, 10.0], &quot;seasonality_mode&quot;: [&quot;additive&quot;, &quot;multiplicative&quot;], }.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">param_grid_</span> <span class="o">=</span> <span class="n">param_grid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_</span> <span class="o">=</span> <span class="n">Prophet</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cutoff_start_</span> <span class="o">=</span> <span class="n">cutoff_start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cuttoff_end_</span> <span class="o">=</span> <span class="n">cutoff_end</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__validate_inputs</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to validate the inputs provided to this class.&quot;&quot;&quot;</span>
+        <span class="c1"># confirm no null values are passed. or wrong formats of data</span>
+
+        <span class="c1"># str_date_validate(self.cutoff_start_)</span>
+        <span class="c1"># str_date_validate(self.cuttoff_end_)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cutoff_start_</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cuttoff_end_</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s1">&#39;&quot;&quot;cutoff_start&quot; and &quot;cutoff_end&quot; date parameters provided must be of type &quot;str&quot;&#39;</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cuttoff_end_</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cuttoff_end_</span><span class="o">.</span><span class="n">isspace</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The cut-off start dates cannot be None or empty&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cutoff_start_</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cutoff_start_</span><span class="o">.</span><span class="n">isspace</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The cut-off end dates cannot be None or empty&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_grid_</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s1">&#39;Make sure the &quot;param_grid parameter&quot; passed is of type dictionary.&#39;</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_grid_</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&quot;param_grid&quot; parameter cannot be empty&#39;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_grid_</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span>
+            <span class="p">[</span><span class="s2">&quot;changepoint_prior_scale&quot;</span><span class="p">,</span> <span class="s2">&quot;seasonality_prior_scale&quot;</span><span class="p">,</span> <span class="s2">&quot;seasonality_mode&quot;</span><span class="p">]</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;Make sure the values in the &quot;param_grid&quot; are the ones expected by the Prophet() model &#39;</span>
+            <span class="p">)</span>
+
+<div class="viewcode-block" id="ModelTuning.tune_hyperparameters"><a class="viewcode-back" href="../../BaseITS.html#BaseITS.model_tuning.ModelTuning.tune_hyperparameters">[docs]</a>    <span class="k">def</span> <span class="nf">tune_hyperparameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to tune the hyperparameters</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            df (pd.DataFrame): Dataframe with the data to be tuned</span>
+<span class="sd">            param_grid (dict, optional): Parameters to be tuned. If None, defaults to the one provided in init(). Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dataframe with the optimal parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">cutoff_start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cutoff_start_</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">cutoff_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cuttoff_end_</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">cutoffs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">cutoff_start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">cutoff_end</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">param_grid</span> <span class="o">==</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_grid</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="c1"># Generate all combinations of parameters</span>
+            <span class="n">all_params</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_grid_</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">v</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">param_grid_</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">all_params</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">param_grid</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">v</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">param_grid</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="p">]</span>
+        <span class="n">rmses</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store the RMSEs for each params here</span>
+
+        <span class="c1"># Use cross validation to evaluate all parameters</span>
+        <span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">all_params</span><span class="p">:</span>
+
+            <span class="n">m</span> <span class="o">=</span> <span class="n">Prophet</span><span class="p">(</span>
+                <span class="n">interval_width</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>
+                <span class="n">growth</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+                <span class="n">yearly_seasonality</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">weekly_seasonality</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">daily_seasonality</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">params</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">add_seasonality</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;yearly&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">365</span><span class="p">,</span> <span class="n">fourier_order</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+            <span class="n">m</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+            <span class="n">df_cv</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="s2">&quot;90 days&quot;</span><span class="p">,</span> <span class="n">cutoffs</span><span class="o">=</span><span class="n">cutoffs</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="s2">&quot;processes&quot;</span>
+            <span class="p">)</span>
+            <span class="n">df_p</span> <span class="o">=</span> <span class="n">performance_metrics</span><span class="p">(</span><span class="n">df_cv</span><span class="p">,</span> <span class="n">rolling_window</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">rmses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_p</span><span class="p">[</span><span class="s2">&quot;rmse&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Find the best parameters</span>
+        <span class="n">tuning_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>
+        <span class="n">tuning_results</span><span class="p">[</span><span class="s2">&quot;rmse&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rmses</span>
+        <span class="n">tuning_results</span> <span class="o">=</span> <span class="n">tuning_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;rmse&quot;</span><span class="p">)</span>
+        <span class="n">best_params</span> <span class="o">=</span> <span class="n">all_params</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">rmses</span><span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">tuning_results</span><span class="p">,</span> <span class="n">best_params</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, IBM Research Africa.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

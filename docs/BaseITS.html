@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BaseITS package &mdash; Interrupted Time Series Analysis for Model Driven Inference 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="BaseITS" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Interrupted Time Series Analysis for Model Driven Inference
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing BaseITS</a></li>     
+              <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>         
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">BaseITS</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BaseITS package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.custom_transform">BaseITS.custom_transform module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.custom_transform.CustomTransform"><code class="docutils literal notranslate"><span class="pre">CustomTransform</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.metrics">BaseITS.metrics module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.metrics.Metrics"><code class="docutils literal notranslate"><span class="pre">Metrics</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.model_tuning">BaseITS.model_tuning module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.model_tuning.ModelTuning"><code class="docutils literal notranslate"><span class="pre">ModelTuning</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.plotting">BaseITS.plotting module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.plotting.Plotting"><code class="docutils literal notranslate"><span class="pre">Plotting</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.poisson_regression">BaseITS.poisson_regression module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.poisson_regression.PoissonITS"><code class="docutils literal notranslate"><span class="pre">PoissonITS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.pre_processing">BaseITS.pre_processing module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.pre_processing.aggregation_long_df_type"><code class="docutils literal notranslate"><span class="pre">aggregation_long_df_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.pre_processing.aggregation_wide_df_type"><code class="docutils literal notranslate"><span class="pre">aggregation_wide_df_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.pre_processing.align_prophet_naming_convection"><code class="docutils literal notranslate"><span class="pre">align_prophet_naming_convection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.pre_processing.create_log_offset"><code class="docutils literal notranslate"><span class="pre">create_log_offset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.pre_processing.dates_validation"><code class="docutils literal notranslate"><span class="pre">dates_validation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.pre_processing.str_date_validate"><code class="docutils literal notranslate"><span class="pre">str_date_validate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.prophet_model">BaseITS.prophet_model module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.prophet_model.ProphetITS"><code class="docutils literal notranslate"><span class="pre">ProphetITS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.utils">BaseITS.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.utils.check_dataset_format"><code class="docutils literal notranslate"><span class="pre">check_dataset_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.utils.extract_inputs"><code class="docutils literal notranslate"><span class="pre">extract_inputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.utils.save_plots"><code class="docutils literal notranslate"><span class="pre">save_plots()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS.wrapper_class">BaseITS.wrapper_class module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BaseITS.wrapper_class.BaseITS"><code class="docutils literal notranslate"><span class="pre">BaseITS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-BaseITS">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Interrupted Time Series Analysis for Model Driven Inference</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">BaseITS</a></li>
+      <li class="breadcrumb-item active">BaseITS package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/BaseITS.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="baseits-package">
+<h1>BaseITS package<a class="headerlink" href="#baseits-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-BaseITS.custom_transform">
+<span id="baseits-custom-transform-module"></span><h2>BaseITS.custom_transform module<a class="headerlink" href="#module-BaseITS.custom_transform" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseITS.custom_transform.CustomTransform">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BaseITS.custom_transform.</span></span><span class="sig-name descname"><span class="pre">CustomTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonally_adjusted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'month'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/custom_transform.html#CustomTransform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.custom_transform.CustomTransform" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Class to transform dataframe for Poisson Regression by adding harmonic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BaseEstimator</strong> (<em>Sklearn</em>) – Base class for all estimators in scikit-learn.</p></li>
+<li><p><strong>TransformerMixin</strong> (<em>Sklearn</em>) – Mixin class for all transformers in scikit-learn.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.custom_transform.CustomTransform.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/custom_transform.html#CustomTransform.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.custom_transform.CustomTransform.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Function to fit the model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>y</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.custom_transform.CustomTransform.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/custom_transform.html#CustomTransform.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.custom_transform.CustomTransform.transform" title="Permalink to this definition"></a></dt>
+<dd><p>Function to transform the variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>pd.DataFrame</em>) – Dataframe with the harmonic inputs</p></li>
+<li><p><strong>y</strong> (<em>pd.Series</em><em>, </em><em>optional</em>) – Series of the outcome variable. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-BaseITS.metrics">
+<span id="baseits-metrics-module"></span><h2>BaseITS.metrics module<a class="headerlink" href="#module-BaseITS.metrics" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseITS.metrics.Metrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BaseITS.metrics.</span></span><span class="sig-name descname"><span class="pre">Metrics</span></span><a class="reference internal" href="_modules/BaseITS/metrics.html#Metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.metrics.Metrics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to generate metrics from the outputs of the models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>Mean absolute percentage error before the intervention
+mape_after: Mean absolute percentage error after the intervention</p>
+<p>actual_mean_before: Actual mean before the intervention
+predicted_mean_before: Predicted mean before the intervention
+actual_mean_after: Actual mean after the intervention
+predicted_mean_after: Predicted mean after the intervention</p>
+<p>actual_median_before: Actual median before the intervention
+predicted_median_before: Predicted median before the intervention
+actual_median_after: Actual median after the intervention
+predicted_median_after: Predicted median after the intervention</p>
+<p>mean_change_before: Mean change before the intervention
+wilcoxon_change_before: Wilcoxon change before the intervention
+mean_change_after: Mean change after the intervention
+wilcoxon_change_after: Wilcoxon change afte the intervention</p>
+<p>change_conf_int_before: Confidence interval change before the intervention
+change_conf_int_after: Confidence interval change before the intervention</p>
+<p>mean_percent_change_before: Mean percentage change before the intervention
+wilcoxon_percent_change_before: Wilcoxon percentage change before the intervention
+mean_percent_change_after: Mean percentage change after the intervention
+wilcoxon_percent_change_after: Wilcoxon percentage change after the intervention</p>
+<p>percent_change_conf_int_before: Confidence interval percentage change before the intervention
+percent_change_conf_int_after: Confidence interval percentage change after the intervention</p>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>mape_before</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.metrics.Metrics.get_forecast_metrics">
+<span class="sig-name descname"><span class="pre">get_forecast_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/metrics.html#Metrics.get_forecast_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.metrics.Metrics.get_forecast_metrics" title="Permalink to this definition"></a></dt>
+<dd><p>Function to get the metrics from the forecast.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location</strong> (<em>str</em>) – Geographical unit</p></li>
+<li><p><strong>outcome</strong> (<em>str</em>) – Outcome measure</p></li>
+<li><p><strong>forecast</strong> (<em>dict</em>) – dictionary with the prophet forecast output for the geographical unit and outcome</p></li>
+<li><p><strong>prediction_start_date</strong> (<em>datetime</em>) – Prediction start date</p></li>
+<li><p><strong>prediction_end_date</strong> (<em>datetime</em>) – Prediction end date</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with generated metrics</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-BaseITS.model_tuning">
+<span id="baseits-model-tuning-module"></span><h2>BaseITS.model_tuning module<a class="headerlink" href="#module-BaseITS.model_tuning" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseITS.model_tuning.ModelTuning">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BaseITS.model_tuning.</span></span><span class="sig-name descname"><span class="pre">ModelTuning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2019-02-28'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2019-10-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'changepoint_prior_scale':</span> <span class="pre">[0.001,</span> <span class="pre">0.05],</span> <span class="pre">'seasonality_mode':</span> <span class="pre">['additive',</span> <span class="pre">'multiplicative'],</span> <span class="pre">'seasonality_prior_scale':</span> <span class="pre">[0.1,</span> <span class="pre">10.0]}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/model_tuning.html#ModelTuning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.model_tuning.ModelTuning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for tuning Hyperparameters for prophet model. No implementation for Poisson Regression because it’s a basic linear regression model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cutoff_start</strong> (<em>str</em><em>, </em><em>optional</em>) – start date for tuning data . Defaults to “2019-02-28”.</p></li>
+<li><p><strong>cutoff_end</strong> (<em>str</em><em>, </em><em>optional</em>) – end date for tuning data. Defaults to “2019-10-31”.</p></li>
+<li><p><strong>param_grid</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictionary with the parameters to be tuned. Defaults to { “changepoint_prior_scale”: [0.001, 0.05], “seasonality_prior_scale”: [0.1, 10.0], “seasonality_mode”: [“additive”, “multiplicative”], }.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.model_tuning.ModelTuning.tune_hyperparameters">
+<span class="sig-name descname"><span class="pre">tune_hyperparameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/model_tuning.html#ModelTuning.tune_hyperparameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.model_tuning.ModelTuning.tune_hyperparameters" title="Permalink to this definition"></a></dt>
+<dd><p>Function to tune the hyperparameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe with the data to be tuned</p></li>
+<li><p><strong>param_grid</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters to be tuned. If None, defaults to the one provided in init(). Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe with the optimal parameters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-BaseITS.plotting">
+<span id="baseits-plotting-module"></span><h2>BaseITS.plotting module<a class="headerlink" href="#module-BaseITS.plotting" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BaseITS.plotting.</span></span><span class="sig-name descname"><span class="pre">Plotting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intervention_end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecast</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">{}</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'plots/'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to handle the plotting given a fixed expectation of inputs. This class is an addition, Users can implement more plotting functions to visualize their data &amp; outputs.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting.plot_sphaghetti">
+<span class="sig-name descname"><span class="pre">plot_sphaghetti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_sphaghetti"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting.plot_sphaghetti" title="Permalink to this definition"></a></dt>
+<dd><p>Line plot with all the provided outcomes and locations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting.plot_cumulative">
+<span class="sig-name descname"><span class="pre">plot_cumulative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_cumulative"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting.plot_cumulative" title="Permalink to this definition"></a></dt>
+<dd><p>Cumulative plots.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting.plot_count_its">
+<span class="sig-name descname"><span class="pre">plot_count_its</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_count_its"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting.plot_count_its" title="Permalink to this definition"></a></dt>
+<dd><p>Counts plots.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting.plot_percent_change">
+<span class="sig-name descname"><span class="pre">plot_percent_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_percent_change"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting.plot_percent_change" title="Permalink to this definition"></a></dt>
+<dd><p>Percentage plots.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting.plot_diff">
+<span class="sig-name descname"><span class="pre">plot_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting.plot_diff" title="Permalink to this definition"></a></dt>
+<dd><p>Difference of values plots.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting.plot_boxplots">
+<span class="sig-name descname"><span class="pre">plot_boxplots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_boxplots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting.plot_boxplots" title="Permalink to this definition"></a></dt>
+<dd><p>Boxplots</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting.plots_metrics_distribution">
+<span class="sig-name descname"><span class="pre">plots_metrics_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plots_metrics_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting.plots_metrics_distribution" title="Permalink to this definition"></a></dt>
+<dd><p>Kernel Density Estimate plot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">plot_boxplots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_boxplots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dd><p>Function to plot boxplots</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>str</em>) – date column</p></li>
+<li><p><strong>y</strong> (<em>str</em>) – data value column to be plotted</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – title of plot</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">plot_count_its</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_count_its"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
+<dd><p>Function to plot the forecast counts.</p>
+<p>&#64;params:
+unit: Geographical unit (string)
+outcome: Outcome measure (string)
+forecast: Dataframe with the prophet forecast output for the geographical unit and outcome(pd.DataFrame)
+prediction_start_date: Prediction start date (datetime)
+prediction_end_date: Prediction end date (datetime)
+normalise: Data normalised (boolean)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">plot_cumulative</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_cumulative"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Permalink to this definition"></a></dt>
+<dd><p>Function to plot the cumulative forecast.</p>
+<p>&#64;params:
+unit: Geographical/Organizational unit (string)
+outcome: Outcome measure (string)
+forecast: Dataframe with the prophet forecast output for the geographical/organizational unit and outcome (pd.DataFrame)
+prediction_start_date: Prediction start date (datetime)
+prediction_end_date: Prediction end date (datetime)
+normalise: Data normalised (boolean)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.plotting.Plotting.plot_cv_metric">
+<span class="sig-name descname"><span class="pre">plot_cv_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_cv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_cv_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.plotting.Plotting.plot_cv_metric" title="Permalink to this definition"></a></dt>
+<dd><p>Function to plot the cross-validation metrics.</p>
+<p>&#64;params:
+location: Geographical unit (string)
+outcome: Outcome measure (string)
+df_cv: Dataframe with date and the outcome value for the geographical unit and outcome. (pd.DataFrame)
+seasonality_mode: tuned prophet model parameter (string)
+changepoint_prior_scale: tuned prophet model parameter (double)
+seasonality_prior_scale: tuned prophet model parameter (double)
+cutoff_start: Prediction start date (datetime)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">plot_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Permalink to this definition"></a></dt>
+<dd><p>Function to plot the difference of the outcomes and the predicted values</p>
+<p>&#64;params:
+data: Dataframe with the metrics from the forecast (pd.DataFrame)
+prediction_start_date: Prediction start date (str)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">plot_percent_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_percent_change"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Permalink to this definition"></a></dt>
+<dd><p>Function to plot the percentage change of the outcomes and the predicted values</p>
+<p>&#64;params:
+data: Dataframe with the selected metrics from the forecast (pd.DataFrame)
+prediction_start_date: Prediction start date (str)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">plot_sphaghetti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plot_sphaghetti"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Permalink to this definition"></a></dt>
+<dd><p>Plot sphaghetti</p>
+<p>&#64;params
+data: data in wide format (dataframe)
+id_var: column name of unique ids of individuals (str) i.e Regions, Districts
+x_var: name of x variable (str) i.e Date column name
+y_var: name of y variable (str) i.e outcome measure to be plotted column name i.e Diabetes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">plots_metrics_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/plotting.html#Plotting.plots_metrics_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Permalink to this definition"></a></dt>
+<dd><p>Function to plot metrics distribution before and after interruption</p>
+<blockquote>
+<div><p>&#64;params:</p>
+</div></blockquote>
+<p>prediction_start_date: Prediction start date (str)
+prediction_end_date: Prediction end date (str)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-BaseITS.poisson_regression">
+<span id="baseits-poisson-regression-module"></span><h2>BaseITS.poisson_regression module<a class="headerlink" href="#module-BaseITS.poisson_regression" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseITS.poisson_regression.PoissonITS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BaseITS.poisson_regression.</span></span><span class="sig-name descname"><span class="pre">PoissonITS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.poisson_regression.PoissonITS" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code></p>
+<p>An SK-learn wrapper class to statsmodel’s poisson regression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fit_intercept</strong> – boolean, default= True</p></li>
+<li><p><strong>fitted</strong> – boolean, parameter to indicate if intercept should be fitted.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.poisson_regression.PoissonITS.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.poisson_regression.PoissonITS.fit" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.poisson_regression.PoissonITS.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.poisson_regression.PoissonITS.predict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.poisson_regression.PoissonITS.fit_predict">
+<span class="sig-name descname"><span class="pre">fit_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS.fit_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.poisson_regression.PoissonITS.fit_predict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.poisson_regression.PoissonITS.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.poisson_regression.PoissonITS.summary" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Permalink to this definition"></a></dt>
+<dd><p>A reference implementation of a fitting function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – {array-like, sparse matrix}, shape (n_samples, n_features)
+The training input samples.</p></li>
+<li><p><strong>y</strong> – array-like, shape (n_samples,) or (n_samples, n_outputs)
+The target values (class labels in classification, real numbers in
+regression).</p></li>
+<li><p><strong>offset</strong> – _description_. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">fit_predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS.fit_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id9" title="Permalink to this definition"></a></dt>
+<dd><p>A reference implementation of a predicting function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – (array-like, sparse matrix), shape (n_samples, n_features)
+The training input samples tranformed earlier.</p></li>
+<li><p><strong>prediction_df</strong> (<em>pd.DataFrame</em>) – Prediction dataframe before transformation.</p></li>
+<li><p><strong>factor</strong> (<em>int</em>) – value to standardize the data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>ndarray, shape (n_samples,)</dt><dd><p>Returns an array of ones.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>y</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/poisson_regression.html#PoissonITS.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id10" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-BaseITS.pre_processing">
+<span id="baseits-pre-processing-module"></span><h2>BaseITS.pre_processing module<a class="headerlink" href="#module-BaseITS.pre_processing" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.pre_processing.aggregation_long_df_type">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.pre_processing.</span></span><span class="sig-name descname"><span class="pre">aggregation_long_df_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome_value_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/pre_processing.html#aggregation_long_df_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.pre_processing.aggregation_long_df_type" title="Permalink to this definition"></a></dt>
+<dd><p>Function to aggregate outcome values in a long dataframe type based on the date, outcome and location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Long dataframe with the data</p></li>
+<li><p><strong>location_col_name</strong> (<em>str</em>) – column name of the locations in the dataframe</p></li>
+<li><p><strong>date_col_name</strong> (<em>str</em>) – column name of the date in the dataframe</p></li>
+<li><p><strong>outcome_col_name</strong> (<em>str</em>) – column name of the outcome in the dataframe</p></li>
+<li><p><strong>outcome_value_col_name</strong> (<em>str</em>) – column name of the outcome values in the dataframe</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe with aggregated counts per location, date and outcome</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrmae</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.pre_processing.aggregation_wide_df_type">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.pre_processing.</span></span><span class="sig-name descname"><span class="pre">aggregation_wide_df_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome_cols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/pre_processing.html#aggregation_wide_df_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.pre_processing.aggregation_wide_df_type" title="Permalink to this definition"></a></dt>
+<dd><p>Function to aggregate outcome values in a wide dataframe type based on the date, outcome and location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Wide dataframe type</p></li>
+<li><p><strong>location_col_name</strong> (<em>str</em>) – column name of the location in the dataframe</p></li>
+<li><p><strong>date_col_name</strong> (<em>str</em>) – date column name in the dataframe</p></li>
+<li><p><strong>outcome_cols</strong> (<em>list</em>) – list of the outcome column names</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe with aggregated counts per location, date and outcome</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.pre_processing.align_prophet_naming_convection">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.pre_processing.</span></span><span class="sig-name descname"><span class="pre">align_prophet_naming_convection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/pre_processing.html#align_prophet_naming_convection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.pre_processing.align_prophet_naming_convection" title="Permalink to this definition"></a></dt>
+<dd><p>Function to align column names with ones expected by prophet model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe with the columns</p></li>
+<li><p><strong>x_col_name</strong> (<em>str</em>) – outcome column</p></li>
+<li><p><strong>y_col_name</strong> (<em>str</em>) – date column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataframe with renamed columns to the expected prophet naming convection</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.pre_processing.create_log_offset">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.pre_processing.</span></span><span class="sig-name descname"><span class="pre">create_log_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ofset_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/pre_processing.html#create_log_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.pre_processing.create_log_offset" title="Permalink to this definition"></a></dt>
+<dd><p>Create offset for the poisson regression forecast model: (log)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe with the offset column</p></li>
+<li><p><strong>ofset_column</strong> (<em>str</em>) – column of the offset</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>calcutated offset</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.pre_processing.dates_validation">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.pre_processing.</span></span><span class="sig-name descname"><span class="pre">dates_validation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/pre_processing.html#dates_validation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.pre_processing.dates_validation" title="Permalink to this definition"></a></dt>
+<dd><p>Function to validate dates to datetime format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe with the data</p></li>
+<li><p><strong>date_col_name</strong> (<em>str</em>) – column with the dates</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Series with the date_col_name with datetime datatype</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.pre_processing.str_date_validate">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.pre_processing.</span></span><span class="sig-name descname"><span class="pre">str_date_validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/pre_processing.html#str_date_validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.pre_processing.str_date_validate" title="Permalink to this definition"></a></dt>
+<dd><p>Function to validate strings that they are in the correct datetime format for conversion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>date_text</strong> (<em>str</em>) – String with the date</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raises an error incase wrong string date format is provided</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Datetime converted value in the format ( ‘%Y-%m-%d’)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-BaseITS.prophet_model">
+<span id="baseits-prophet-model-module"></span><h2>BaseITS.prophet_model module<a class="headerlink" href="#module-BaseITS.prophet_model" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseITS.prophet_model.ProphetITS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BaseITS.prophet_model.</span></span><span class="sig-name descname"><span class="pre">ProphetITS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/prophet_model.html#ProphetITS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.prophet_model.ProphetITS" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A wrapper class that uses Prophet <a class="reference external" href="https://pypi.org/project/prophet/">https://pypi.org/project/prophet/</a> to forecast</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.prophet_model.ProphetITS.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonality_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'additive'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonality_prior_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changepoint_prior_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/prophet_model.html#ProphetITS.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.prophet_model.ProphetITS.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fit function of the wrapper Prophet class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame with the training data.</p></li>
+<li><p><strong>seasonality_mode</strong> (<em>str</em><em>, </em><em>optional</em>) – Seasonality mode experienced by the data . Defaults to “additive”.</p></li>
+<li><p><strong>seasonality_prior_scale</strong> (<em>float</em><em>, </em><em>optional</em>) – seasonality prior scale  that has been optimised for the dataset. Defaults to 0.5.</p></li>
+<li><p><strong>changepoint_prior_scale</strong> (<em>float</em><em>, </em><em>optional</em>) – changepoint prior scale that has been optimised for the dataset. Defaults to 0.5.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>instance of the class that is fitted using the prophet model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self(<a class="reference internal" href="#BaseITS.prophet_model.ProphetITS" title="BaseITS.prophet_model.ProphetITS">ProphetITS</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.prophet_model.ProphetITS.fit_predict">
+<span class="sig-name descname"><span class="pre">fit_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonality_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'additive'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seasonality_prior_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changepoint_prior_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/prophet_model.html#ProphetITS.fit_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.prophet_model.ProphetITS.fit_predict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.prophet_model.ProphetITS.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/prophet_model.html#ProphetITS.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.prophet_model.ProphetITS.predict" title="Permalink to this definition"></a></dt>
+<dd><p>A reference implementation of a predicting function.
+:param df:
+:type df: (pd.DataFrame) DataFrame with the testing data. Both X and y</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>forecast</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(pd.DataFrame) Returns a dataframe with forecast</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.prophet_model.ProphetITS.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/prophet_model.html#ProphetITS.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.prophet_model.ProphetITS.summary" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-BaseITS.utils">
+<span id="baseits-utils-module"></span><h2>BaseITS.utils module<a class="headerlink" href="#module-BaseITS.utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.utils.check_dataset_format">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.utils.</span></span><span class="sig-name descname"><span class="pre">check_dataset_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcomes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'trial'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/utils.html#check_dataset_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.utils.check_dataset_format" title="Permalink to this definition"></a></dt>
+<dd><p>Function to check dataset format. Not used as of now. Only long dataframe accepted in V1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame with the data</p></li>
+<li><p><strong>outcomes</strong> (<em>list</em>) – outcomes to be used</p></li>
+<li><p><strong>col_name</strong> (<em>str</em><em>, </em><em>optional</em>) – column name provided in the init. Defaults to “trial”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception</strong> – Excepetion rasied if outcomes not in the dataframe</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dataset_format (long,wide)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.utils.extract_inputs">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.utils.</span></span><span class="sig-name descname"><span class="pre">extract_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/utils.html#extract_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.utils.extract_inputs" title="Permalink to this definition"></a></dt>
+<dd><p>Function to extract inputs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Dictionary with the looped results.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple with the keys of the dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="BaseITS.utils.save_plots">
+<span class="sig-prename descclassname"><span class="pre">BaseITS.utils.</span></span><span class="sig-name descname"><span class="pre">save_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/utils.html#save_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.utils.save_plots" title="Permalink to this definition"></a></dt>
+<dd><p>Function to save plots</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<em>str</em>) – File path</p></li>
+<li><p><strong>plot_name</strong> (<em>str</em>) – name of the plot</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-BaseITS.wrapper_class">
+<span id="baseits-wrapper-class-module"></span><h2>BaseITS.wrapper_class module<a class="headerlink" href="#module-BaseITS.wrapper_class" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseITS.wrapper_class.BaseITS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BaseITS.wrapper_class.</span></span><span class="sig-name descname"><span class="pre">BaseITS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outcome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interruption_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/wrapper_class.html#BaseITS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.wrapper_class.BaseITS" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class assumes that the data is already pre-processed to the required format.
+If not pre-processed, the user should use the functions in pre-processing &amp; custom_transform to pre-process their data
+Class supports wide-format datasets only. Refer to readme on how to structure your dataset.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Args:</dt><dd><p>outcome (list, optional): List of the outcome labels. Defaults to None.
+location (list, optional): List of the location labels. Defaults to None.
+interruption_date (list, optional): List of the interruption dates. Defaults to None.
+model (list, optional): List of the models labels. Defaults to None.
+verbose (bool, optional): Boolean variable to log outputs. Defaults to False.</p>
+</dd>
+<dt>Methods:</dt><dd><p>fit(df: pd.DataFrame, X: pd.Series, y: pd.Series, offset: float = None)
+predict( df: pd.DataFrame, X: pd.Series, y: pd.Series, offset: float = None)
+fit_predict(df: pd.DataFrame, X: pd.Series, y: pd.Series)</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.wrapper_class.BaseITS.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/wrapper_class.html#BaseITS.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.wrapper_class.BaseITS.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Function called by user to fit their models.(prophet or poisson)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame with the data</p></li>
+<li><p><strong>offset</strong> (<em>float</em><em>, </em><em>optional</em>) – _description_. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Fitted object of the class.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#BaseITS.wrapper_class.BaseITS" title="BaseITS.wrapper_class.BaseITS">BaseITS</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.wrapper_class.BaseITS.fit_predict">
+<span class="sig-name descname"><span class="pre">fit_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/wrapper_class.html#BaseITS.fit_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.wrapper_class.BaseITS.fit_predict" title="Permalink to this definition"></a></dt>
+<dd><p>Function to simultaneously fit and predict a function using the prophet model.
+This function does not work for poisson-regression as the data needs to be pre-processed using the custom-transform class.
+TODO Implement this fuction to check if user has already preprocessed the poisson data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataset</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotImplementedError</strong> – Raises this error if user tries to use the poisson regression model</p></li>
+<li><p><strong>ValueError</strong> – Raises an error if the user provided model not in this list[prophet, poisson]</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>DataFrame with the forecasted results.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.wrapper_class.BaseITS.pool_fit_predict">
+<span class="sig-name descname"><span class="pre">pool_fit_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/wrapper_class.html#BaseITS.pool_fit_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.wrapper_class.BaseITS.pool_fit_predict" title="Permalink to this definition"></a></dt>
+<dd><p>Private function to fit and predictmore than one instance of outcomes, locations, models, intervention_dates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_threads</strong> (<em>cpu_count</em>) – cpu_count</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataset</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame with the forecast results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.wrapper_class.BaseITS.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/wrapper_class.html#BaseITS.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.wrapper_class.BaseITS.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Function used to forecast using the previously fitted models</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataset with the data to be used</p></li>
+<li><p><strong>offset</strong> (<em>float</em><em>, </em><em>optional</em>) – _description_. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseITS.wrapper_class.BaseITS.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BaseITS/wrapper_class.html#BaseITS.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BaseITS.wrapper_class.BaseITS.summary" title="Permalink to this definition"></a></dt>
+<dd><p>Function to generate the summary of the models</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>summary returned by the model</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-BaseITS">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-BaseITS" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <!-- <a href="modules.html" class="btn btn-neutral float-left" title="BaseITS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a> -->
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, IBM Research Africa.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
