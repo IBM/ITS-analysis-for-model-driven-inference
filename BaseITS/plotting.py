@@ -5,7 +5,7 @@ import numpy as np
 from datetime import datetime
 import pandas as pd
 from prophet.plot import plot_cross_validation_metric
-from source.utils import *
+from BaseITS.utils import *
 
 # All plots saved in a plots folder
 
@@ -13,15 +13,15 @@ from source.utils import *
 class Plotting:
     """Class to handle the plotting given a fixed expectation of inputs. This class is an addition, Users can implement more plotting functions to visualize their data & outputs.
 
-    Implements:
+    Methods:
 
-        plot_sphaghetti: Line plot with all the provided outcomes and locations.
-        plot_cumulative: Cumulative plots.
-        plot_count_its: Counts plots.
-        plot_percent_change: Percentage plots.
-        plot_diff: Difference of values plots.
-        plot_boxplots: Boxplots
-        plots_metrics_distribution: Kernel Density Estimate plot
+        plot_sphaghetti(...): Line plot with all the provided outcomes and locations.
+        plot_cumulative(...): Cumulative plots.
+        plot_count_its(...): Counts plots.
+        plot_percent_change(...): Percentage plots.
+        plot_diff(...): Difference of values plots.
+        plot_boxplots(...): Boxplots
+        plots_metrics_distribution(...): Kernel Density Estimate plot
 
     """
 
@@ -36,6 +36,7 @@ class Plotting:
         """Constructor
 
         Args:
+
             intervention_end_date(str):
             forecast (dict): forecast output from prophet model
             data (pd.DataFrame): dataset to be used

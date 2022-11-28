@@ -7,7 +7,7 @@ from prophet import Prophet
 from prophet.diagnostics import cross_validation
 from prophet.diagnostics import performance_metrics
 
-from source.pre_processing import str_date_validate
+from BaseITS.pre_processing import str_date_validate
 
 
 class ModelTuning:
@@ -30,6 +30,13 @@ class ModelTuning:
             "seasonality_mode": ["additive", "multiplicative"],
         },
     ):
+        """Tuning parameters
+
+        Args:
+            cutoff_start (str, optional): start date for tuning data . Defaults to "2019-02-28".
+            cutoff_end (str, optional): end date for tuning data. Defaults to "2019-10-31".
+            param_grid (dict, optional): Dictionary with the parameters to be tuned. Defaults to { "changepoint_prior_scale": [0.001, 0.05], "seasonality_prior_scale": [0.1, 10.0], "seasonality_mode": ["additive", "multiplicative"], }.
+        """
 
         self.param_grid_ = param_grid
         self.model_ = Prophet()
