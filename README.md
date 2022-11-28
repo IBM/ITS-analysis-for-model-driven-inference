@@ -10,6 +10,6 @@ This projects allows a user to use their data in a specified format to perform i
 
 [Demo notebook](https://github.com/IBM/ITS-analysis-for-model-driven-inference/blob/main/demos/wrapper_ITS.ipynb)
 
-## Documentation Webiste
+## Documentation Website
 
-Comming soon
+[Code Documentation](https://its-analysis-for-model-driven-inference.readthedocs.io/en/latest/index.html)
