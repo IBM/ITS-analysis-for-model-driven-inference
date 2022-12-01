@@ -105,13 +105,13 @@ class Metrics:
         metrics["wilcoxon_change_after"] = wilcoxon(df_after["change"])
 
         metrics["change_conf_int_before"] = t.interval(
-            alpha=0.95,
+            confidence=0.95,
             df=len(df_before["change"]) - 1,
             loc=np.mean(df_before["change"]),
             scale=sem(df_before["change"]),
         )
         metrics["change_conf_int_after"] = t.interval(
-            alpha=0.95,
+            confidence=0.95,
             df=len(df_after["change"]) - 1,
             loc=np.mean(df_after["change"]),
             scale=sem(df_after["change"]),
@@ -125,13 +125,13 @@ class Metrics:
         metrics["wilcoxon_percent_change_after"] = wilcoxon(df_after["percent_change"])
 
         metrics["percent_change_conf_int_before"] = t.interval(
-            alpha=0.95,
+            confidence=0.95,
             df=len(df_before["percent_change"]) - 1,
             loc=np.mean(df_before["percent_change"]),
             scale=sem(df_before["percent_change"]),
         )
         metrics["percent_change_conf_int_after"] = t.interval(
-            alpha=0.95,
+            confidence=0.95,
             df=len(df_after["percent_change"]) - 1,
             loc=np.mean(df_after["percent_change"]),
             scale=sem(df_after["percent_change"]),
