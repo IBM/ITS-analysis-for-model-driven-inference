@@ -5,6 +5,11 @@ import os
 
 # Clean up function to remove files created during tests
 def delete_if_exists(file_list):
+    """Function to delete a file if it exists
+
+    Args:
+        file_list (any): Files list to be removed.
+    """
     for f in file_list:
         if os.path.isfile(f):
             os.remove(f)
@@ -12,7 +17,6 @@ def delete_if_exists(file_list):
 
 @pytest.fixture(autouse=True)
 def run_before_and_after_tests():
-
     """Fixture to execute code before and after a test is run"""
     file_list = [file for file in os.listdir("tests/plots") if file.endswith(".png")]
     # Before test - If files exist, delete
@@ -24,11 +28,21 @@ def run_before_and_after_tests():
 
 @pytest.fixture
 def poisson_df() -> pd.DataFrame:
+    """Fixture with the poisson dataframe used for testing
+
+    Returns:
+        pd.DataFrame: poisson specific dataframe
+    """
     return pd.read_csv("data/poisson_testing_df.csv")
 
 
 @pytest.fixture
 def prophet_data() -> pd.DataFrame:
+    """Fixture with the prophet dataframe used for testing
+
+    Returns:
+        pd.DataFrame: prophet specific dataframe
+    """
     return pd.read_csv("data/prophet_testing_df.csv")
 
 
@@ -40,41 +54,53 @@ def prophet_data() -> pd.DataFrame:
 
 @pytest.fixture
 def wide_df():
+    """Fixture with the wide type dataframe used for testing
+
+    Returns:
+        _type_: wide type dataframe
+    """
     return pd.read_csv("data/wide_format_data.csv")
 
 
 @pytest.fixture
 def X() -> str:
+    """Fixture for the X, the datetime column"""
     return "ds"
 
 
 @pytest.fixture
 def y() -> str:
+    """Fixture for the y, the outcome column"""
     return "X1"
 
 
 @pytest.fixture
 def offset_column_name() -> str:
+    """Fixture for the offset, the offset column"""
     return "pop"
 
 
 @pytest.fixture
 def factor() -> int:
+    """Fixture for the factor, used in poisson transformation"""
     return 100000
 
 
 @pytest.fixture
 def transform_columns() -> list:
+    """Fixture for the harmonic poisson columns"""
     return ["pandemic_april", "time"]
 
 
 @pytest.fixture
 def outcomes() -> str:
+    """Fixture for the outcome columns"""
     return ["X1", "X2", "X3", "X4"]
 
 
 @pytest.fixture
 def metrics_columns() -> list:
+    """Fixture for the metrics columns"""
     return [
         "location",
         "outcome",
@@ -105,6 +131,7 @@ def metrics_columns() -> list:
 
 @pytest.fixture
 def params() -> dict():
+    """Fixture for the parameters values to be tuned. (dict)"""
     return {
         "changepoint_prior_scale": [0.001],
         "seasonality_prior_scale": [0.1],
@@ -113,5 +140,10 @@ def params() -> dict():
 
 
 @pytest.fixture
-def forecast_dict() -> pd.DataFrame:
+def forecast_df() -> pd.DataFrame:
+    """Fixture with the forecast dataframe used for testing
+
+    Returns:
+        pd.DataFrame: forecast dataframe with the outputs of the models
+    """
     return pd.read_csv("data/metrics.csv")
